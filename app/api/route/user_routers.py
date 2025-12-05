@@ -12,6 +12,7 @@ class UserCreateRequest(BaseModel):
     email: str
 
 
+<<<<<<< HEAD
 class UserResponse(BaseModel):
     id: int
     name: str
@@ -29,4 +30,19 @@ async def create_user_api(
         name=user_create_request.name,
         email=user_create_request.email,
         created_at=str(datetime.now())
+=======
+@router.get("/", response_model=UserResponse)
+async def get_user_api(
+        user_id: int,
+        user_service=Depends(get_user_service)
+):
+    user = user_service.get_user(
+        user_id=user_id
+    )
+    return UserResponse(
+        id=user.get('id'),
+        name=user.get('name'),
+        email=user.get('email'),
+        created_at=user.get('created_at')
+>>>>>>> a042084 (feat: sqlalchemy, orm 기능 추가)
     )
