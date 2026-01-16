@@ -17,7 +17,7 @@ engine = create_engine(
   echo=False,      # 디버깅용으로 보고 싶으면 True
   pool_size=5,
   max_overflow=10,
-)
+)#까꿍
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

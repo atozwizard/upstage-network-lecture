@@ -12,8 +12,10 @@ class UserRepository:
             conn.add(user)
             conn.commit()
             conn.refresh(user)
-            return user
+            return user#낄낄
         finally:
+            
+            
             release_conn(conn)
 
     def get_user_by_id(self, id: int):
