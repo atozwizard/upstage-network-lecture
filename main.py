@@ -29,7 +29,7 @@ async def value_error_handler(request: Request, exc: ValueError):
         status_code=400,
         content={"error": "Bad Request", "message": str(exc)}
     )
-
+#야아아아아아호
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
