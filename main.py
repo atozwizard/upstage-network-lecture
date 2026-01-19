@@ -9,7 +9,7 @@ app = FastAPI()
 async def email_not_allowed_handler(request: Request, exc: EmailNotAllowedNameExistsError):
     return JSONResponse(
         status_code=409,
-        content={"error": "Email Not Allowed", "message": str(exc)}
+        content={"error": "Email Not Allowed", "message": str(exc)}#릴리즈요?
     )
 
 

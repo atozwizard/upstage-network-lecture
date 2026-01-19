@@ -12,7 +12,7 @@ class UserCreateRequest(BaseModel):
     email: str
 
 
-<<<<<<< HEAD
+
 class UserResponse(BaseModel):
     id: int
     name: str
@@ -44,5 +44,5 @@ async def get_user_api(
         name=user.get('name'),
         email=user.get('email'),
         created_at=user.get('created_at')
->>>>>>> a042084 (feat: sqlalchemy, orm 기능 추가)
+
     )

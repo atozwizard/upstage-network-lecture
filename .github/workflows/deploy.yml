@@ -2,7 +2,9 @@ name: Deploy to EC2
 
 on:
   push:
-    branches: [ "main" ] # main에 푸시될 때 작동
+    branches: 
+      - main
+      - "release/*"  # release/0.0.1, release/v1 등 모든 release 브랜치 허용
 
 jobs:
   deploy:
