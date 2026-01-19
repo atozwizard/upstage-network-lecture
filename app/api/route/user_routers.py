@@ -30,7 +30,7 @@ async def create_user_api(
         name=user_create_request.name,
         email=user_create_request.email,
         created_at=str(datetime.now())
-=======
+
 @router.get("/", response_model=UserResponse)
 async def get_user_api(
         user_id: int,
