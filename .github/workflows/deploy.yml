@@ -28,7 +28,7 @@ jobs:
             docker-compose up -d
             
             # 2. 기존 파이썬 프로세스 종료
-            sudo fuser -k 8000/tcp || true
+            fuser -k 8000/tcp || true
             
             # 3. 환경 변수와 함께 앱 실행 (비밀번호 등은 본인 설정에 맞게!)
             export DB_HOST=localhost
@@ -36,4 +36,6 @@ jobs:
             export DB_PASSWORD=tester 
             export DB_NAME=llmagent
             export UPSTAGE_API_KEY=${{ secrets.UPSTAGE_API_KEY }}
+
+            mv app.log app.log.bak || true
             nohup uv run uvicorn main:app --host 0.0.0.0 --port 8000 > app.log 2>&1 &
