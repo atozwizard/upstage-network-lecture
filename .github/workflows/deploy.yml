@@ -24,6 +24,8 @@ jobs:
             git fetch origin release/0.0.1
             git reset --hard origin/release/0.0.1
             
+            export PATH="/home/atozwizard/.local/bin:$PATH"
+            uv sync
             # 1. 도커 컴포즈 실행 (이미 실행 중이면 무시됨)
             docker-compose up -d
             
