@@ -2,7 +2,7 @@ name: Deploy to EC2
 
 on:
   push:
-    branches: 
+    branches:
       - main
       - "release/*"  # release/0.0.1, release/v1 등 모든 release 브랜치 허용
 
@@ -13,12 +13,10 @@ jobs:
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@v1.0.3
         with:
-          # host: "3.144.75.223"
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-
             cd ~/workspace/upstage-network-lecture
             git pull origin release/0.0.1
             
