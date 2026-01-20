@@ -19,7 +19,10 @@ jobs:
           script: |
             cd /home/atozwizard/upstage-network-lecture
             git config --global --add safe.directory /home/atozwizard/upstage-network-lecture
-            git pull origin release/0.0.1
+            
+            # 1. 서버의 로컬 변경사항 강제 초기화 (충돌 방지)
+            git fetch origin release/0.0.1
+            git reset --hard origin/release/0.0.1
             
             # 1. 도커 컴포즈 실행 (이미 실행 중이면 무시됨)
             sudo docker-compose up -d
