@@ -20,7 +20,7 @@ jobs:
           script: |
 
             cd ~/workspace/upstage-network-lecture
-            git pull network release/0.0.1
+            git pull origin release/0.0.1
             
             # 1. 도커 컴포즈 실행 (이미 실행 중이면 무시됨)
             sudo docker-compose up -d
