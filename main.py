@@ -4,7 +4,7 @@ from app.api.route.user_routers import router as user_router
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
-
+from services.ai_agent import get_todo_summary
 app = FastAPI()
 
 
@@ -81,3 +81,11 @@ app.include_router(user_router)
 @app.get("/hello")
 def hello():
     return {"message": "Hello FastAPI!"}
+
+
+@app.get("/todos/summary")
+async def view_summary():
+    # 1. DB(또는 메모리)에서 현재 할 일 목록을 가져옴
+    # 2. AI 서비스 호출
+    summary_text = get_todo_summary(todos)
+    return {"summary": summary_text}
