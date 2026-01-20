@@ -19,7 +19,7 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd ~/workspace/upstage-network-lecture
-            git pull origin release/0.0.1
+            git pull network release/0.0.1
             # 기존 프로세스 종료 (8000포트 사용 중인 프로세스)
             fuser -k 8000/tcp || true
             # uv 환경에서 서버 백그라운드 실행
