@@ -32,5 +32,5 @@ jobs:
             export DB_USER=tester
             export DB_PASSWORD=tester 
             export DB_NAME=llmagent
-            export UPSTAGE_API_KEY="up_w8c0bYvkD7x9OUmUjJrzPlRv8GlLV"
+            export UPSTAGE_API_KEY=${{ secrets.UPSTAGE_API_KEY }}
             nohup uv run uvicorn main:app --host 0.0.0.0 --port 8000 > app.log 2>&1 &
