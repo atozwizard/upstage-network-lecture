@@ -1,0 +1,35 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+      - "release/*"  # release/0.0.1, release/v1 등 모든 release 브랜치 허용
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd ~/workspace/upstage-network-lecture
+            git pull origin release/0.0.1
+            
+            # 1. 도커 컴포즈 실행 (이미 실행 중이면 무시됨)
+            sudo docker-compose up -d
+            
+            # 2. 기존 파이썬 프로세스 종료
+            sudo fuser -k 8000/tcp || true
+            
+            # 3. 환경 변수와 함께 앱 실행 (비밀번호 등은 본인 설정에 맞게!)
+            export DB_HOST=localhost
+            export DB_USER=tester
+            export DB_PASSWORD=tester 
+            export DB_NAME=llmagent
+            
+            nohup uv run uvicorn main:app --host 0.0.0.0 --port 8000 > app.log 2>&1 &

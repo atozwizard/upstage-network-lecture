@@ -1,9 +1,37 @@
 from fastapi import FastAPI, Request, HTTPException
 from app.exceptions import EmailNotAllowedNameExistsError, UserNotFoundError
 from app.api.route.user_routers import router as user_router
+from pydantic import BaseModel
+from datetime import datetime
+from typing import Optional
 
 app = FastAPI()
 
+
+# 임시 데이터 저장소 (DB 대신)
+todos = []
+
+class Todo(BaseModel):
+    id: Optional[int] = None
+    content: str
+    created_at: Optional[datetime] = None
+
+@app.post("/todos")
+async def create_todo(todo: Todo):
+    todo.id = len(todos) + 1
+    todo.created_at = datetime.now()
+    todos.append(todo)
+    return todo
+
+@app.get("/todos")
+async def get_todos():
+    return todos
+
+@app.delete("/todos/{todo_id}")
+async def delete_todo(todo_id: int):
+    global todos
+    todos = [t for t in todos if t.id != todo_id]
+    return {"message": "success"}
 
 
 @app.exception_handler(EmailNotAllowedNameExistsError)
