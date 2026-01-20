@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, HTTPException
+from app.exceptions import EmailNotAllowedNameExistsError, UserNotFoundError
 from app.api.route.user_routers import router as user_router
 
 app = FastAPI()

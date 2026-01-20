@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
-
+from app.service.user_service import get_user_service
 # create user
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -29,7 +29,7 @@ async def create_user_api(
         id=0,
         name=user_create_request.name,
         email=user_create_request.email,
-        created_at=str(datetime.now())
+        created_at=str(datetime.now()))
 
 @router.get("/", response_model=UserResponse)
 async def get_user_api(
