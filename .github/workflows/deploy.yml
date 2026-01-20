@@ -18,9 +18,20 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
+
             cd ~/workspace/upstage-network-lecture
             git pull network release/0.0.1
-            # 기존 프로세스 종료 (8000포트 사용 중인 프로세스)
-            fuser -k 8000/tcp || true
-            # uv 환경에서 서버 백그라운드 실행
+            
+            # 1. 도커 컴포즈 실행 (이미 실행 중이면 무시됨)
+            sudo docker-compose up -d
+            
+            # 2. 기존 파이썬 프로세스 종료
+            sudo fuser -k 8000/tcp || true
+            
+            # 3. 환경 변수와 함께 앱 실행 (비밀번호 등은 본인 설정에 맞게!)
+            export DB_HOST=localhost
+            export DB_USER=tester
+            export DB_PASSWORD=tester 
+            export DB_NAME=llmagent
+            
             nohup uv run uvicorn main:app --host 0.0.0.0 --port 8000 > app.log 2>&1 &
