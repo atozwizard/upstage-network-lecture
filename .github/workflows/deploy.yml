@@ -25,7 +25,7 @@ jobs:
             git reset --hard origin/release/0.0.1
             
             # 1. 도커 컴포즈 실행 (이미 실행 중이면 무시됨)
-            sudo docker-compose up -d
+            docker-compose up -d
             
             # 2. 기존 파이썬 프로세스 종료
             sudo fuser -k 8000/tcp || true
